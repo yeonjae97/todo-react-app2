@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import "@mui/material";
 import { Checkbox, InputBase, ListItem, ListItemText } from '@mui/material';
 
 function Todo(props){
@@ -8,13 +7,13 @@ function Todo(props){
   // console.log(typeof props.onEvent);
   // console.log(props.onEvent());
 
-  let result = useState("str");
-  let [str, setStr] = result;
+  // let result = useState("str");
+  // let [str, setStr] = result;
   // const str = useState("str");
   // console.log(str); // 정체는 배열
   // str[1]("changed str");
 
-  const [item, setItem] = useState(props);
+  const [item, setItem] = useState(props.item);
   // console.log(item.a);
   return (
     // <div className='Todo'>
@@ -31,8 +30,7 @@ function Todo(props){
           name={item.id}
           value={item.title}
           multiline={true}
-          fullWidth={true}
-          />
+          fullWidth={true} />
       </ListItemText> 
     </ListItem>
   );

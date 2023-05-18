@@ -1,26 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
-import '@mui/material';
+import React, { useState } from 'react';
+import Todo from './Todo';
+import "./App.css";
+import { Container, List, Paper } from '@mui/material';
+import AddTodo from './AddTodo';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  // const[item, setItem] = useState({id: 1, title:"Hello World 1", done: true});
+  const[items, setItems] = useState([
+    {id: 1, done: true, title:"제목1"},
+    {id: 2, done: false, title:"제목2"}
+  ]);
 
+  let str = [];
+  for(let i = 0; i < items.length; i++){
+    str.push(<Todo item={items[i]}/>);
+  }
+
+  let todoItems = items.length > 0 && (
+    <Paper style={{ margin: 16}}>
+      <List>
+        {items.map((item) => (
+          <Todo item={item} key={item.id}/>)
+        )}
+      </List>
+    </Paper>
+    );
+
+    return (
+     <div className='App'>
+        <Container maxWidth="md">
+          <AddTodo />
+          <div className='TodoList'>{todoItems}</div>
+        </Container>
+        {/* <Todo 
+          number={10} 
+          item={item}
+          onEvent={function(){
+            console.log("message");
+          }}
+          /> */}
+        {/* <Todo /> ??? => 목적 부합 X */}
+        {/* {todoItems} */}
+      </div>
+    );
+  
+}
 export default App;

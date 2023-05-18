@@ -25,13 +25,15 @@ function Todo(props){
   const [readOnly, setReadOnly] = useState(true);
   const editItem = props.editItem;
   const editEventHandler = (e) => {
-    item.title = e.target.value;
-    editItem();
+    // item.title = e.target.value;
+    // editItem();
+    setItem({...item, title: e.target.value});
   }
 
   const turnOnReadOnly = (e) => {
-    if(e.key === "Enter"){
+    if(e.key === "Enter" && readOnly === false){
       setReadOnly(true);
+      editItem(item);
     }
   }
   const turnOffReadOnly = () => {
@@ -44,7 +46,9 @@ function Todo(props){
 
   const checkboxEventHandler = (e) => {
     item.done = e.target.checked;
-    editItem();
+    // editItem();
+    // setItem({...item, done: e.target.checked});
+    editItem(item);
   }
   
   // console.log(item.a);

@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Checkbox, InputBase, ListItem, ListItemText } from '@mui/material';
+import { 
+  Checkbox, 
+  InputBase, 
+  ListItem, 
+  ListItemText,
+  ListItemSecondaryAction,
+  IconButton,
+} from '@mui/material';
+import DeleteOutliend from "@mui/icons-material/DeleteOutlined";
 
 function Todo(props){
   // console.log(props);
@@ -14,6 +22,31 @@ function Todo(props){
   // str[1]("changed str");
 
   const [item, setItem] = useState(props.item);
+  const [readOnly, setReadOnly] = useState(true);
+  const editItem = props.editItem;
+  const editEventHandler = (e) => {
+    item.title = e.target.value;
+    editItem();
+  }
+
+  const turnOnReadOnly = (e) => {
+    if(e.key === "Enter"){
+      setReadOnly(true);
+    }
+  }
+  const turnOffReadOnly = () => {
+    setReadOnly(false);
+  }
+  const deleteItem = props.deleteItem;
+  const deleteEventHandler = () =>{
+    deleteItem(item);
+  }
+
+  const checkboxEventHandler = (e) => {
+    item.done = e.target.checked;
+    editItem();
+  }
+  
   // console.log(item.a);
   return (
     // <div className='Todo'>
@@ -21,17 +54,26 @@ function Todo(props){
     //   <label for={item.id}>{item.title}</label>
     // </div>
     <ListItem>
-      <Checkbox checked={item.done} />
+      <Checkbox checked={item.done} onChange={checkboxEventHandler}/>
       <ListItemText>
         <InputBase
-          inputProps={{"aria-label": "naked"}}  
+          inputProps={{"aria-label": "naked", readOnly: readOnly}}
+          onClick={turnOffReadOnly}  
+          onKeyDown={turnOnReadOnly}
+          onChange={editEventHandler}
           type="text"
           id={item.id}
           name={item.id}
           value={item.title}
           multiline={true}
           fullWidth={true} />
-      </ListItemText> 
+      </ListItemText>
+      <ListItemSecondaryAction>
+        <IconButton aria-label='Delete Todo'
+          onClick={deleteEventHandler}>
+          <DeleteOutliend />
+        </IconButton>  
+      </ListItemSecondaryAction> 
     </ListItem>
   );
 };

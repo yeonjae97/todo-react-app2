@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Login';
 import App from './App';
+import SignUp from './SignUp';
 
 function Copyright(){
   return(
@@ -19,6 +20,7 @@ const AppRouter = () => {
         <Routes>
           <Route path='/' element={<App />} />
           <Route path='login' element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
       <Box mt={5}>

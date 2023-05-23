@@ -59,8 +59,12 @@ function App() {
     call("/todo","GET", null)
       .then((response) => {
         setItems(response.data)
-        setLoading(false);
-      });
+    
+        // setLoading(false);
+    });
+    setTimeout(() => {
+      setLoading(false);
+    }, 300);
   }, []);
 
   let todoItems = items.length > 0 && (

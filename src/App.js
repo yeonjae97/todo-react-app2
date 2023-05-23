@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import Todo from './Todo';
 import "./App.css";
-import { Container, List, Paper } from '@mui/material';
+import { AppBar, Button, Container, Grid, List, Paper, Toolbar, Typography } from '@mui/material';
 import AddTodo from './AddTodo';
-import { call } from './service/ApiService';
+import { call, signout } from './service/ApiService';
+import { Navigation } from '@mui/icons-material';
 
 
 function App() {
   // const[item, setItem] = useState({id: 1, title:"Hello World 1", done: true});
+  const [loading, setLoading] = useState(true);
   const[items, setItems] = useState([
     {id: "ID-1", done: true, title:"제목1"},
     {id: "ID-2", done: false, title:"제목2"},
   ]);
+
 
   // let str = [];
   // for(let i = 0; i < items.length; i++){
@@ -54,7 +57,10 @@ function App() {
     //     (error) => {}
     //   );
     call("/todo","GET", null)
-      .then((response) => setItems(response.data));
+      .then((response) => {
+        setItems(response.data)
+        setLoading(false);
+      });
   }, []);
 
   let todoItems = items.length > 0 && (
@@ -72,23 +78,41 @@ function App() {
     </Paper>
     );
   
+    let navigationBar = (
+      <AppBar position='static'>
+        <Toolbar>
+          <Grid justifyContent='space-between' container>
+            <Grid item>
+              <Typography variant='h6'>오늘의 할일</Typography>
+            </Grid>
+            <Grid item>
+              <Button color='inherit' onClick={signout}> 
+                로그아웃
+              </Button>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+    )
+
+    
+
+
     return (
-     <div className='App'>
+    <div className='App'>
+    {loading ? (
+      <h1>로딩 중...</h1>
+    ) : (
+      <div>
+        {/* <Navigation /> */}
+        {navigationBar}
         <Container maxWidth="md">
           <AddTodo addItem={addItem}/>
           <div className='TodoList'>{todoItems}</div>
         </Container>
-        {/* <Todo 
-          number={10} 
-          item={item}
-          onEvent={function(){
-            console.log("message");
-          }}
-          /> */}
-        {/* <Todo /> ??? => 목적 부합 X */}
-        {/* {todoItems} */}
       </div>
-    );
-  
+    )}
+    </div>
+    )
 }
 export default App;

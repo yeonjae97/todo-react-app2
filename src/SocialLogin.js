@@ -7,9 +7,9 @@ const SocialLogin = (props) => {
     let params = new URLSearchParams(search);
     return params.get(name);
   }
-
+  
   const token = getUrlParameter("token");
-
+  
   console.log("토큰 파싱: " + token);
 
   if (token) {

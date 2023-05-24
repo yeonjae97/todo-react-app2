@@ -4,7 +4,7 @@ import "./App.css";
 import { AppBar, Button, Container, Grid, List, Paper, Toolbar, Typography } from '@mui/material';
 import AddTodo from './AddTodo';
 import { call, signout } from './service/ApiService';
-import { Navigation } from '@mui/icons-material';
+import Navigation from './Navigation';
 
 
 function App() {
@@ -26,21 +26,33 @@ function App() {
     // item.done=false;
     // setItems([...items, item]);
     // console.log("items : " , items);
+    setLoading(true);
     call("/todo","POST", item)
-      .then((response) => setItems(response.data));
+      .then((response) => {
+        setItems(response.data);
+        setLoading(false);
+      });
   }
 
   const deleteItem = (item) => {
     // const newItems = items.filter(e => e.id !== item.id);
     // setItems([...newItems]);
+    setLoading(true);
     call("/todo", "DELETE", item)
-      .then((response) => setItems(response.data));
+      .then((response) => {
+        setItems(response.data);
+        setLoading(false);
+      });
   }
 
   const editItem = (item) => {
     // setItems([...items]);
+    setLoading(true);
     call("/todo", "PUT", item)
-      .then((response) => setItems(response.data));
+      .then((response) => {
+        setItems(response.data);
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
@@ -67,7 +79,7 @@ function App() {
     }, 300);
   }, []);
 
-  let todoItems = items.length > 0 && (
+  let todoItems = items && items.length > 0 && (
     <Paper style={{ margin: 16}}>
       <List>
         {items.map((item) => (
@@ -108,8 +120,8 @@ function App() {
       <h1>로딩 중...</h1>
     ) : (
       <div>
-        {/* <Navigation /> */}
-        {navigationBar}
+        <Navigation />
+        {/* {navigationBar} */}
         <Container maxWidth="md">
           <AddTodo addItem={addItem}/>
           <div className='TodoList'>{todoItems}</div>

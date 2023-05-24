@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { signin, socialLogin } from './service/ApiService';
 import { Button, Container, Grid, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-
   // 로그인 버튼 이벤트
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,6 +63,26 @@ const Login = () => {
               style={{ background: '#000' }}
             >
               깃허브로 로그인하기
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button onClick={() => handleSocialLogin("google")}
+              type="submit"
+              fullWidth
+              variant='contained'
+              style={{ background: '#4285f4' }}
+            >
+              구글로 로그인하기
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button onClick={() => handleSocialLogin("kakao")}
+              type="submit"
+              fullWidth
+              variant='contained'
+              style={{ background: '#FFFF66' }}
+            >
+              카카오톡으로 로그인하기
             </Button>
           </Grid>
           <Grid item>

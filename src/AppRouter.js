@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Login';
 import App from './App';
 import SignUp from './SignUp';
+import SocialLogin from './SocialLogin';
 
 function Copyright(){
   return(
@@ -21,6 +22,7 @@ const AppRouter = () => {
           <Route path='/' element={<App />} />
           <Route path='login' element={<Login />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="socialLogin" element={<SocialLogin />} />
         </Routes>
       </BrowserRouter>
       <Box mt={5}>

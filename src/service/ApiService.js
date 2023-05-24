@@ -61,3 +61,7 @@ export function signout(){
 export function signup(userDTO){
   return call("/auth/signup", "POST", userDTO);
 }
+
+export function socialLogin(provider) {
+  window.location.href = API_BASE_URL + "/oauth2/auth/" + provider + "?redirect_url=" + (window.location.protocol + "//" + window.location.host);
+}
